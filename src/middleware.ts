@@ -7,7 +7,8 @@ export const config = {
 };
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken({ req: request });
+  // getToken also requires secret, without it the token is NULL
+  const token = await getToken({ req: request, secret: process.env.NEXT_AUTH_SECRET });
   const url = request.nextUrl;
 
   // Redirect to dashboard if the user is already authenticated
